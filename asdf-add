@@ -1,0 +1,11 @@
+#!/usr/bin/sbcl --script
+
+(require :asdf)
+
+(let ((cwd (uiop:getcwd)))
+  (with-open-file (stream (uiop:xdg-config-home "common-lisp" 
+                                                "source-registry.conf.d" 
+                                                (concatenate 'string (car (last (pathname-directory cwd))) ".conf"))
+                   :direction :output :if-exists :supersede :if-does-not-exist :create)
+    (pprint (list :tree cwd) stream)))
+                   
