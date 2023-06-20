@@ -1,0 +1,6 @@
+#!/usr/bin/bash
+
+for RC in ~/.abclrc ~/.ccl-init.lisp ~/.clasprc ~/.clinit.cl ~/.clisprc.lisp ~/.cmucl-init.lisp ~/.eclrc ~/.mkclrc ~/.sbclrc
+do
+  echo -e "(load \"/root/quicklisp/setup.lisp\")" > $RC
+done

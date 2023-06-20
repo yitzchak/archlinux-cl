@@ -42,6 +42,10 @@ RUN curl -fsSL "https://franz.com/ftp/pub/acl${ALLEGRO_VERSION}/linuxamd64.64/ac
 USER root
 WORKDIR /root
 
+ENV XDG_CONFIG_HOME=/root/.config
+ENV XDG_DATA_HOME=/root/.local/share
+ENV XDG_CACHE_HOME=/root/.cache
+
 RUN curl -kLO https://beta.quicklisp.org/quicklisp.lisp && \
     sbcl --non-interactive --load quicklisp.lisp --eval "(quicklisp-quickstart:install)" --eval "(ql-util:without-prompting (ql:add-to-init-file))" && \
     abcl --load ~/quicklisp/setup.lisp --eval "(ql-util:without-prompting (ql:add-to-init-file))" --eval "(ext:quit)" && \
@@ -56,3 +60,4 @@ RUN curl -kLO https://beta.quicklisp.org/quicklisp.lisp && \
     mkdir -p ~/.config/common-lisp/source-registry.conf.d
 
 COPY asdf-add /usr/local/bin/asdf-add
+COPY make-rc /usr/local/bin/make-rc
