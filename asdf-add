@@ -2,10 +2,14 @@
 
 (require :asdf)
 
-(let ((cwd (uiop:getcwd)))
-  (with-open-file (stream (uiop:xdg-config-home "common-lisp" 
-                                                "source-registry.conf.d" 
-                                                (concatenate 'string (car (last (pathname-directory cwd))) ".conf"))
+(let* ((cwd (uiop:getcwd))
+       (config-path (uiop:xdg-config-home "common-lisp" 
+                                          "source-registry.conf.d" 
+                                          (concatenate 'string
+                                                       (car (last (pathname-directory cwd)))
+                                                       ".conf"))))
+  (ensure-directories-exist config-path)                                                
+  (with-open-file (stream config-path
                    :direction :output :if-exists :supersede :if-does-not-exist :create)
     (pprint (list :tree cwd) stream)))
                    
