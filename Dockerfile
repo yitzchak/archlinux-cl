@@ -41,6 +41,9 @@ RUN curl -fsSL "https://franz.com/ftp/pub/acl${ALLEGRO_VERSION}/linuxamd64.64/ac
     sudo /opt/acl${ALLEGRO_VERSION}.64/update.sh -u && \
     sudo ln -s /opt/acl${ALLEGRO_VERSION}.64/alisp /usr/local/bin/alisp
 
+USER root
+WORKDIR /root
+
 RUN curl -kLO https://beta.quicklisp.org/quicklisp.lisp && \
     sbcl --non-interactive --load quicklisp.lisp --eval "(quicklisp-quickstart:install)" --eval "(ql-util:without-prompting (ql:add-to-init-file))" && \
     abcl --load ~/quicklisp/setup.lisp --eval "(ql-util:without-prompting (ql:add-to-init-file))" --eval "(ext:quit)" && \
