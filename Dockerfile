@@ -3,8 +3,6 @@ FROM ghcr.io/yitzchak/archlinux-makepkg:latest
 ARG ALLEGRO_VERSION=10.1express
 ARG ALLEGRO_SHA512=045cb7946a9876807541d28097c4bb875c2dacd9ac20c841b7bcd6deec4101c7569f454eff80b2d8a74bd9ee255bf68ce14aaf0053d97e095f7e49499df80707
 
-ENV PATH="~/.local/bin:$PATH"
-
 RUN sudo pacman-key --init && \
     echo -e "[multilib]\nInclude = /etc/pacman.d/mirrorlist" | sudo tee --append /etc/pacman.conf && \
     sudo pacman -Syu --noconfirm cmucl ecl sbcl lib32-gcc-libs && \
@@ -57,4 +55,4 @@ RUN curl -kLO https://beta.quicklisp.org/quicklisp.lisp && \
     rm quicklisp.lisp && \
     mkdir -p ~/.config/common-lisp/source-registry.conf.d
 
-COPY asdf-add .local/bin/asdf-add
+COPY asdf-add /usr/local/bin/asdf-add
