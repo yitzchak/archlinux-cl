@@ -61,3 +61,4 @@ RUN curl -kLO https://beta.quicklisp.org/quicklisp.lisp && \
 
 COPY asdf-add /usr/local/bin/asdf-add
 COPY make-rc /usr/local/bin/make-rc
+COPY lisp /usr/local/bin/lisp
