@@ -10,7 +10,7 @@ while getopts 'i:e:l:qn' opt; do
         IMPL="$OPTARG"
         case "$IMPL" in
         acl)
-                CMD=(alisp)
+                CMD=(alisp -L "/root/quicklisp/setup.lisp")
                 ;;
         *)
                 CMD=("$IMPL")
@@ -36,7 +36,7 @@ while getopts 'i:e:l:qn' opt; do
       l)
         case "$IMPL" in
         acl)
-                CMD+=(-e "(load \"$OPTARG\")")
+                CMD+=(-L "$OPTARG")
                 ;;
         clisp)
                 CMD+=(-i "$OPTARG")
