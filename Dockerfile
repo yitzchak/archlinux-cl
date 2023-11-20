@@ -20,11 +20,11 @@ RUN git clone https://aur.archlinux.org/clisp-git.git && \
     cd .. && \
     rm -rf clisp-git
 
-RUN git clone https://aur.archlinux.org/abcl.git && \
-    cd abcl && \
+RUN git clone https://aur.archlinux.org/abcl-git.git && \
+    cd abcl-abcl && \
     makepkg --noconfirm --syncdeps --install --nocheck && \
     cd .. && \
-    rm -rf abcl
+    rm -rf abcl-abcl
 
 RUN git clone https://aur.archlinux.org/mkcl-git.git && \
     cd mkcl-git && \
