@@ -5,7 +5,7 @@ ARG ALLEGRO_SHA512=045cb7946a9876807541d28097c4bb875c2dacd9ac20c841b7bcd6deec410
 
 RUN sudo pacman-key --init && \
     echo -e "[multilib]\nInclude = /etc/pacman.d/mirrorlist" | sudo tee --append /etc/pacman.conf && \
-    sudo pacman -Syu --noconfirm cmucl ecl sbcl lib32-gcc-libs && \
+    sudo pacman -Syu --noconfirm cmucl sbcl lib32-gcc-libs && \
     sudo bash -c "$(curl -fsSL https://www.thirdlaw.tech/pkg/clasp.sh)"
 
 RUN git clone https://aur.archlinux.org/ccl.git && \
@@ -31,6 +31,12 @@ RUN git clone https://aur.archlinux.org/mkcl-git.git && \
     makepkg --noconfirm --syncdeps --install --nocheck && \
     cd .. && \
     rm -rf mkcl-git
+
+RUN git clone https://aur.archlinux.org/ecl-git.git && \
+    cd ecl-git && \
+    makepkg --noconfirm --syncdeps --install --nocheck && \
+    cd .. && \
+    rm -rf ecl-git
 
 RUN curl -fsSL "https://franz.com/ftp/pub/acl${ALLEGRO_VERSION}/linuxamd64.64/acl${ALLEGRO_VERSION}-linux-x64.tbz2" > "acl${ALLEGRO_VERSION}-linux-x64.tbz2" && \
     echo "$ALLEGRO_SHA512  acl${ALLEGRO_VERSION}-linux-x64.tbz2" | sha512sum -c - && \
