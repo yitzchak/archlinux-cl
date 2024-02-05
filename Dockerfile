@@ -1,7 +1,7 @@
 FROM ghcr.io/yitzchak/archlinux-makepkg:latest
 
-ARG ALLEGRO_VERSION=10.1express
-ARG ALLEGRO_SHA512=045cb7946a9876807541d28097c4bb875c2dacd9ac20c841b7bcd6deec4101c7569f454eff80b2d8a74bd9ee255bf68ce14aaf0053d97e095f7e49499df80707
+ARG ALLEGRO_VERSION=11.0express
+ARG ALLEGRO_SHA512=52fded5014b5c60774874067d3a1059fdc403e4e8e5f73163a9215034e0245c584c418cf1535317e2ecdd74e95869a18fbd3f18842d11a97de48567de61b1198
 
 RUN sudo pacman-key --init && \
     echo -e "[multilib]\nInclude = /etc/pacman.d/mirrorlist" | sudo tee --append /etc/pacman.conf && \
