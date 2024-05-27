@@ -12,6 +12,9 @@ while getopts 'i:e:l:qn' opt; do
         acl)
                 CMD=(alisp -L "/root/quicklisp/setup.lisp")
                 ;;
+        cmucl)
+                CMD=(cmucl -batch)
+                ;;
         *)
                 CMD=("$IMPL")
                 ;;
@@ -64,7 +67,7 @@ while getopts 'i:e:l:qn' opt; do
                 CMD+=(-eval "(quit)")
                 ;;
         mkcl)
-                CMD+=(-eval "(ext:quit)")
+                CMD+=(-eval "(mkcl:quit)")
                 ;;
         *)
                 CMD+=(--quit)
@@ -95,5 +98,18 @@ while getopts 'i:e:l:qn' opt; do
         ;;
       esac
 done
+
+shift $(($OPTIND - 1))
+
+if [ -n "$@" ]; then
+    case "$IMPL" in
+        clasp|cmucl|ecl|mkcl)
+            CMD+=(-- "$@")
+            ;;
+        *)
+            CMD+=("$@")
+            ;;
+    esac
+fi
 
 "${CMD[@]}"
