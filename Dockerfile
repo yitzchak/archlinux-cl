@@ -5,7 +5,14 @@ ARG ALLEGRO_SHA512=52fded5014b5c60774874067d3a1059fdc403e4e8e5f73163a9215034e024
 
 RUN sudo pacman-key --init && \
     echo -e "[multilib]\nInclude = /etc/pacman.d/mirrorlist" | sudo tee --append /etc/pacman.conf && \
-    sudo pacman -Syu --noconfirm cmucl sbcl lib32-gcc-libs lib32-openssl-1.1
+    sudo pacman -Syu --noconfirm cmucl sbcl lib32-gcc-libs openssl-1.1
+
+RUN curl -fsSL "https://franz.com/ftp/pub/acl${ALLEGRO_VERSION}/linuxamd64.64/acl${ALLEGRO_VERSION}-linux-x64.tbz2" > "acl${ALLEGRO_VERSION}-linux-x64.tbz2" && \
+    echo "$ALLEGRO_SHA512  acl${ALLEGRO_VERSION}-linux-x64.tbz2" | sha512sum -c - && \
+    sudo tar -C /opt/ -xvf "acl${ALLEGRO_VERSION}-linux-x64.tbz2" && \
+    rm "acl${ALLEGRO_VERSION}-linux-x64.tbz2" && \
+    sudo /opt/acl${ALLEGRO_VERSION}.64/update.sh -u && \
+    sudo ln -s /opt/acl${ALLEGRO_VERSION}.64/alisp /usr/local/bin/alisp
 
 RUN git clone https://aur.archlinux.org/clasp-cl-git.git && \
     cd clasp-cl-git && \
@@ -42,13 +49,6 @@ RUN git clone https://aur.archlinux.org/ecl-git.git && \
     makepkg --noconfirm --syncdeps --install --nocheck && \
     cd .. && \
     rm -rf ecl-git
-
-RUN curl -fsSL "https://franz.com/ftp/pub/acl${ALLEGRO_VERSION}/linuxamd64.64/acl${ALLEGRO_VERSION}-linux-x64.tbz2" > "acl${ALLEGRO_VERSION}-linux-x64.tbz2" && \
-    echo "$ALLEGRO_SHA512  acl${ALLEGRO_VERSION}-linux-x64.tbz2" | sha512sum -c - && \
-    sudo tar -C /opt/ -xvf "acl${ALLEGRO_VERSION}-linux-x64.tbz2" && \
-    rm "acl${ALLEGRO_VERSION}-linux-x64.tbz2" && \
-    sudo /opt/acl${ALLEGRO_VERSION}.64/update.sh -u && \
-    sudo ln -s /opt/acl${ALLEGRO_VERSION}.64/alisp /usr/local/bin/alisp
 
 USER root
 WORKDIR /root
