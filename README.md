@@ -4,7 +4,6 @@ Arch Linux Docker image with Common Lisp implementations. Current
 implementations are:
 
 * [ABCL](https://armedbear.common-lisp.dev/)
-* [ACL Express](https://franz.com/products/allegro-common-lisp/)
 * [CCL](https://ccl.clozure.com/)
 * [CLASP](https://github.com/clasp-developers/clasp)
 * [CLISP](https://gitlab.com/gnu-clisp/clisp)
@@ -50,7 +49,6 @@ jobs:
       matrix:
         lisp:
         - abcl
-        - acl
         - ccl
         - clasp
         - clisp
