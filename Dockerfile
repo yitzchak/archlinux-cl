@@ -5,8 +5,13 @@ ARG ALLEGRO_SHA512=52fded5014b5c60774874067d3a1059fdc403e4e8e5f73163a9215034e024
 
 RUN sudo pacman-key --init && \
     echo -e "[multilib]\nInclude = /etc/pacman.d/mirrorlist" | sudo tee --append /etc/pacman.conf && \
-    sudo pacman -Syu --noconfirm cmucl sbcl lib32-gcc-libs && \
-    sudo bash -c "$(curl -fsSL https://www.thirdlaw.tech/pkg/clasp.sh)"
+    sudo pacman -Syu --noconfirm cmucl sbcl lib32-gcc-libs lib32-openssl openssl
+
+RUN git clone https://aur.archlinux.org/clasp-cl.git && \
+    cd clasp-cl && \
+    makepkg --noconfirm --syncdeps --install --nocheck && \
+    cd .. && \
+    rm -rf clasp-cl
 
 RUN git clone https://aur.archlinux.org/ccl.git && \
     cd ccl && \
