@@ -60,6 +60,9 @@ while getopts 'i:e:l:qn' opt; do
         acl)
                 CMD+=(-e "(excl:exit)")
                 ;;
+        ccl)
+                CMD+=(--eval "(quit)")
+                ;;
         clisp)
                 CMD+=(-x "(quit)")
                 ;;
