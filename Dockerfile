@@ -28,12 +28,6 @@ RUN git clone https://aur.archlinux.org/abcl-git.git && \
     cd .. && \
     rm -rf abcl-git
 
-RUN git clone https://aur.archlinux.org/mkcl-git.git && \
-    cd mkcl-git && \
-    makepkg --noconfirm --syncdeps --install --nocheck && \
-    cd .. && \
-    rm -rf mkcl-git
-
 RUN git clone https://aur.archlinux.org/ecl-git.git && \
     cd ecl-git && \
     makepkg --noconfirm --syncdeps --install --nocheck && \
@@ -54,7 +48,6 @@ RUN curl -kLO https://beta.quicklisp.org/quicklisp.lisp && \
     clasp --non-interactive --load ~/quicklisp/setup.lisp --eval "(ql-util:without-prompting (ql:add-to-init-file))" && \
     clisp -i ~/quicklisp/setup.lisp -x "(ql-util:without-prompting (ql:add-to-init-file))" && \
     ecl --load ~/quicklisp/setup.lisp --eval "(ql-util:without-prompting (ql:add-to-init-file))" --eval "(ext:quit)" && \
-    mkcl -load ~/quicklisp/setup.lisp -eval "(ql-util:without-prompting (ql:add-to-init-file))" -eval "(quit)" && \
     rm quicklisp.lisp && \
     mkdir -p ~/.config/common-lisp/source-registry.conf.d
 
