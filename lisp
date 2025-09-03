@@ -4,6 +4,8 @@ IMPL=sbcl
 
 CMD=(sbcl)
 
+_JAVA_OPTIONS=-Duser.home=$HOME
+
 while getopts 'i:e:l:qn' opt; do
       case "$opt" in
       i)
