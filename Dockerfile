@@ -34,6 +34,12 @@ RUN git clone https://aur.archlinux.org/ecl-git.git && \
     cd .. && \
     rm -rf ecl-git
 
+RUN git clone https://aur.archlinux.org/ocicl.git && \
+    cd ocicl && \
+    makepkg --noconfirm --syncdeps --install --nocheck && \
+    cd .. && \
+    rm -rf ocicl
+
 USER root
 WORKDIR /root
 
@@ -41,15 +47,7 @@ ENV XDG_CONFIG_HOME=/root/.config
 ENV XDG_DATA_HOME=/root/.local/share
 ENV XDG_CACHE_HOME=/root/.cache
 
-RUN curl -kLO https://beta.quicklisp.org/quicklisp.lisp && \
-    sbcl --non-interactive --load quicklisp.lisp --eval "(quicklisp-quickstart:install)" --eval "(ql-util:without-prompting (ql:add-to-init-file))" && \
-    abcl --load ~/quicklisp/setup.lisp --eval "(ql-util:without-prompting (ql:add-to-init-file))" --eval "(ext:quit)" && \
-    ccl --load ~/quicklisp/setup.lisp --eval "(ql-util:without-prompting (ql:add-to-init-file))" --eval "(quit)" && \
-    clasp --non-interactive --load ~/quicklisp/setup.lisp --eval "(ql-util:without-prompting (ql:add-to-init-file))" && \
-    clisp -i ~/quicklisp/setup.lisp -x "(ql-util:without-prompting (ql:add-to-init-file))" && \
-    ecl --load ~/quicklisp/setup.lisp --eval "(ql-util:without-prompting (ql:add-to-init-file))" --eval "(ext:quit)" && \
-    rm quicklisp.lisp && \
-    mkdir -p ~/.config/common-lisp/source-registry.conf.d
+RUN ocicl setup 
 
 COPY asdf-add /usr/local/bin/asdf-add
 COPY make-rc /usr/local/bin/make-rc
