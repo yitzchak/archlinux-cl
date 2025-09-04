@@ -9,7 +9,6 @@ while getopts 'i:e:l:qn' opt; do
       i)
         IMPL="$OPTARG"
         case "$IMPL" in
-        abcl)   cmd=(_JAVA_OPTIONS=-Duser.home=$HOME abcl)
         acl)
                 CMD=(alisp -L "/root/quicklisp/setup.lisp")
                 ;;
@@ -116,4 +115,4 @@ if [ -n "$@" ]; then
     esac
 fi
 
-"${CMD[@]}"
+_JAVA_OPTIONS=-Duser.home=$HOME "${CMD[@]}"
