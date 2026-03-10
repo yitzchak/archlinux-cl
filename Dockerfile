@@ -2,7 +2,7 @@ FROM ghcr.io/yitzchak/archlinux-makepkg:latest
 
 RUN sudo pacman-key --init && \
     echo -e "[multilib]\nInclude = /etc/pacman.d/mirrorlist" | sudo tee --append /etc/pacman.conf && \
-    sudo pacman -Syu --noconfirm cmucl sbcl
+    sudo pacman -Syu --noconfirm cmucl sbcl lib32-gcc-libs 
 
 RUN git clone https://aur.archlinux.org/clasp-cl-git.git && \
     cd clasp-cl-git && \
