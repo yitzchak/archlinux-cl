@@ -2,7 +2,7 @@ FROM ghcr.io/yitzchak/archlinux-makepkg:latest
 
 RUN sudo pacman-key --init && \
     echo -e "[multilib]\nInclude = /etc/pacman.d/mirrorlist" | sudo tee --append /etc/pacman.conf && \
-    sudo pacman -Syu --noconfirm cmucl sbcl lib32-gcc-libs 
+    sudo pacman -Syu --noconfirm cmucl ecl sbcl ocicl clisp lib32-gcc-libs 
 
 RUN git clone https://aur.archlinux.org/clasp-cl-git.git && \
     cd clasp-cl-git && \
@@ -16,29 +16,11 @@ RUN git clone https://aur.archlinux.org/ccl.git && \
     cd .. && \
     rm -rf ccl
 
-RUN git clone https://aur.archlinux.org/clisp-git.git && \
-    cd clisp-git && \
-    makepkg --noconfirm --syncdeps --install --nocheck && \
-    cd .. && \
-    rm -rf clisp-git
-
 RUN git clone https://aur.archlinux.org/abcl-git.git && \
     cd abcl-git && \
     makepkg --noconfirm --syncdeps --install --nocheck && \
     cd .. && \
     rm -rf abcl-git
-
-RUN git clone https://aur.archlinux.org/ecl-git.git && \
-    cd ecl-git && \
-    makepkg --noconfirm --syncdeps --install --nocheck && \
-    cd .. && \
-    rm -rf ecl-git
-
-RUN git clone https://aur.archlinux.org/ocicl.git && \
-    cd ocicl && \
-    makepkg --noconfirm --syncdeps --install --nocheck && \
-    cd .. && \
-    rm -rf ocicl
 
 USER root
 WORKDIR /root
